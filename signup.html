@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Join the Wash Club — The Ardsley Carwash</title>
+<meta name="description" content="Sign up for an unlimited wash membership at The Ardsley Carwash. Drive in anytime, unlimited washes, no contracts."/>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://api.fontshare.com/v2/css?f[]=excon@400,500,600,700,800,900&display=swap" rel="stylesheet"/>
+
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="css/signup.css"/>
+</head>
+<body class="signup-body">
+
+<!-- ========== MINIMAL HEADER ========== -->
+<header class="signup-header">
+  <div class="container">
+    <a href="index.html" class="signup-logo-link">
+      <img src="assets/The Ardsley Carwash Logo.jpg" alt="The Ardsley Carwash" class="logo-img"/>
+    </a>
+  </div>
+</header>
+
+<!-- ========== SIGNUP CONTENT ========== -->
+<main class="signup-main">
+  <div class="container">
+
+    <!-- Plan confirmation banner -->
+    <div class="plan-banner" id="planBanner">
+      <div class="plan-banner-icon">
+        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div>
+        <p class="plan-banner-label">Selected Plan</p>
+        <h2 class="plan-banner-name" id="planName">Unlimited Wash Club</h2>
+        <p class="plan-banner-price" id="planPrice"></p>
+      </div>
+    </div>
+
+    <p class="signup-note">Monthly fees are subject to tax and apply only to the vehicle listed below.</p>
+
+    <!-- Signup Form -->
+    <form class="signup-form" id="signupForm">
+
+      <!-- Name -->
+      <div class="form-section">
+        <label class="form-label">Name <span class="required">*</span></label>
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" id="firstName" placeholder="First Name" required/>
+            <span class="form-hint">First Name</span>
+          </div>
+          <div class="form-group">
+            <input type="text" id="lastName" placeholder="Last Name" required/>
+            <span class="form-hint">Last Name</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-section">
+        <label class="form-label" for="email">Email <span class="required">*</span></label>
+        <div class="form-group">
+          <input type="email" id="email" placeholder="example@example.com" required/>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="form-section">
+        <label class="form-label">Phone Number</label>
+        <div class="form-row phone-row">
+          <div class="form-group area-code">
+            <input type="tel" id="areaCode" placeholder="914" maxlength="3" pattern="[0-9]{3}"/>
+            <span class="form-hint">Area Code</span>
+          </div>
+          <span class="phone-separator">-</span>
+          <div class="form-group phone-number">
+            <input type="tel" id="phoneNumber" placeholder="555-1234" maxlength="8"/>
+            <span class="form-hint">Phone Number</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="form-section">
+        <label class="form-label">Address <span class="required">*</span></label>
+        <div class="form-group">
+          <input type="text" id="street1" placeholder="Street Address" required/>
+          <span class="form-hint">Street Address</span>
+        </div>
+        <div class="form-group">
+          <input type="text" id="street2" placeholder="Street Address Line 2"/>
+          <span class="form-hint">Street Address Line 2</span>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" id="city" placeholder="City" required/>
+            <span class="form-hint">City</span>
+          </div>
+          <div class="form-group">
+            <input type="text" id="state" placeholder="State / Province" required/>
+            <span class="form-hint">State / Province</span>
+          </div>
+        </div>
+        <div class="form-group half-width">
+          <input type="text" id="zip" placeholder="Postal / Zip Code" required/>
+          <span class="form-hint">Postal / Zip Code</span>
+        </div>
+      </div>
+
+      <!-- Vehicle Info -->
+      <div class="form-section">
+        <label class="form-label">Vehicle Information <span class="required">*</span></label>
+        <div class="form-row three-col">
+          <div class="form-group">
+            <label class="form-sublabel" for="year">Year <span class="required">*</span></label>
+            <select id="year" required>
+              <option value="">Select...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-sublabel" for="make">Make <span class="required">*</span></label>
+            <select id="make" required>
+              <option value="">Select...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-sublabel" for="model">Model <span class="required">*</span></label>
+            <input type="text" id="model" placeholder="e.g. Camry, Civic" required/>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-yellow btn-full btn-submit">
+        Submit Membership Request
+      </button>
+    </form>
+
+    <!-- Success Message -->
+    <div class="signup-success" id="signupSuccess">
+      <div class="success-icon">
+        <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h3>You're All Set!</h3>
+      <p>We've received your membership request.<br/>We'll reach out shortly to confirm everything.<br/>See you at 639 Saw Mill River Rd!</p>
+      <a href="index.html" class="btn btn-blue">Back to Home</a>
+    </div>
+
+    <a href="index.html#membership" class="back-link" id="backLink">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to plans
+    </a>
+  </div>
+</main>
+
+<!-- ========== MINIMAL FOOTER ========== -->
+<footer class="signup-footer">
+  <div class="container">
+    <span>&copy; 2025 The Ardsley Carwash. All rights reserved.</span>
+    <span>639 Saw Mill River Rd, Ardsley, NY 10502</span>
+  </div>
+</footer>
+
+<script src="js/signup.js"></script>
+</body>
+</html>

@@ -948,8 +948,8 @@ section { padding: 100px 0; }
 
 .membership-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px; /* more breathing room between cards */
 }
 
 .membership-card {
