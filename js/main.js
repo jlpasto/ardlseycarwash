@@ -229,4 +229,68 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { passive: true });
 
+  // ===== PROMO BANNER =====
+  const promoBanner = document.getElementById('promoBanner');
+  const promoBannerClose = document.getElementById('promoBannerClose');
+  if (promoBanner && promoBannerClose) {
+    if (sessionStorage.getItem('promoBannerDismissed')) {
+      promoBanner.classList.add('hidden');
+    }
+    promoBannerClose.addEventListener('click', function() {
+      promoBanner.classList.add('hidden');
+      sessionStorage.setItem('promoBannerDismissed', '1');
+    });
+  }
+
+  // ===== PROMO POPUP =====
+  const promoOverlay = document.getElementById('promoOverlay');
+  if (promoOverlay && !sessionStorage.getItem('promoDismissed')) {
+    const promoClose = document.getElementById('promoClose');
+    const promoCta = document.getElementById('promoCta');
+    let promoShown = false;
+
+    function showPromo() {
+      if (promoShown) return;
+      promoShown = true;
+      promoOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      clearTimeout(promoTimer);
+      window.removeEventListener('scroll', promoScrollCheck);
+    }
+
+    function hidePromo() {
+      promoOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      sessionStorage.setItem('promoDismissed', '1');
+    }
+
+    // Trigger: 50% scroll
+    function promoScrollCheck() {
+      const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      if (scrollPct >= 0.5) showPromo();
+    }
+    window.addEventListener('scroll', promoScrollCheck, { passive: true });
+
+    // Trigger: 30s delay
+    const promoTimer = setTimeout(showPromo, 30000);
+
+    // Dismiss: close button
+    promoClose.addEventListener('click', hidePromo);
+
+    // Dismiss: click overlay background
+    promoOverlay.addEventListener('click', function(e) {
+      if (e.target === promoOverlay) hidePromo();
+    });
+
+    // Dismiss: Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && promoOverlay.classList.contains('active')) hidePromo();
+    });
+
+    // Dismiss after CTA click (with slight delay to allow scroll)
+    promoCta.addEventListener('click', function() {
+      setTimeout(hidePromo, 300);
+    });
+  }
+
 });
