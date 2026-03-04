@@ -1,7 +1,18 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:unsplash.com)"
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:www.ardsleylittleleague.org)",
+      "WebFetch(domain:irvingtonbulldogboosterclub.com)",
+      "WebFetch(domain:rivertownschamber.com)",
+      "WebFetch(domain:www.greenburghchamber.com)",
+      "WebFetch(domain:www.dfyll.com)",
+      "Bash(curl -L -o \"c:/Users/JL/Documents/ardlseycarwash/assets/partners/greenburgh-chamber.png\" \"https://lh3.googleusercontent.com/sitesv/APaQ0SRRPdBEi6SyY1GF5MtehdXNbrCsXg06gWxBu7ow3aiT9DlBD8G8gWdJoT0U9KuedVo7l5Om0nYTRfxjlmPYwwKqTGqAJk876T4_WwH8mVEUZR6Le8u8cR1jlwy5KB79tEiE41cXsSTcEe6Pc2Fw9qajXQKg9EHFOkJTCIGfZeg7qu-C9b-11y8y=w16383\" -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "Bash(curl -L -o \"c:/Users/JL/Documents/ardlseycarwash/assets/partners/dfyll.png\" \"https://www.dfyll.com/Portals/54000/logo/logo638974292953508399.png\" -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "WebFetch(domain:www.pltracing.com)",
+      "Bash(curl -L -s -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://www.greenburghchamber.com/home\")",
+      "Bash(curl -L -s -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://www.instagram.com/pltracing/\")",
+      "WebFetch(domain:www.pltracing.org)"
     ]
   }
 }

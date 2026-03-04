@@ -712,19 +712,13 @@ ul { list-style: none; }
   white-space: nowrap;
 }
 
-/* Coloured logo placeholder square */
+/* Partner logo */
 .hp-icon {
-  width: 26px;
-  height: 26px;
+  width: 40px;
+  height: 40px;
   border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: #fff;
   flex-shrink: 0;
-  font-family: 'Excon', sans-serif;
+  object-fit: contain;
 }
 
 .hp-badge span {
@@ -739,7 +733,7 @@ ul { list-style: none; }
   .hp-string { height: 12px; }
   .hp-badge { padding: 4px 8px 4px 5px; gap: 6px; }
   .hp-badge span { font-size: 0.64rem; }
-  .hp-icon { width: 22px; height: 22px; font-size: 0.65rem; }
+  .hp-icon { width: 32px; height: 32px; }
   .hp-rope { margin-bottom: 10px; }
   .hp-tag { margin: 0 7px; }
 }
