@@ -418,22 +418,23 @@ ul { list-style: none; }
 }
 
 .hero {
-  min-height: 100vh;
+  min-height: 0;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   background: var(--navy-deep);         /* dark fallback if image fails */
   position: relative;
   overflow: hidden;
-  padding: 180px 0 80px;
+  padding: 180px 0 0;
 }
 
 /* Photo layer */
 .hero-bg-image {
   position: absolute;
-  inset: 0;
+  top: 116px; left: 0; right: 0; bottom: 0;
   background-image: url('../assets/banner.png');
-  background-size: cover;
-  background-position: center center;
+  background-size: 100% auto;
+  background-position: center top;
   background-repeat: no-repeat;
   opacity: var(--hero-img-opacity);
   z-index: 0;
@@ -505,6 +506,9 @@ ul { list-style: none; }
   position: relative;
   z-index: 4;
   max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+  padding-bottom: 52px;
 }
 
 .hero-content {
@@ -592,19 +596,7 @@ ul { list-style: none; }
 }
 
 .hero-scroll-indicator {
-  position: absolute;
-  bottom: 32px; left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: rgba(255,255,255,0.3);
-  font-size: 0.72rem;
-  z-index: 4;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  z-index: 2;
+  display: none;
 }
 
 .scroll-line {
@@ -615,18 +607,141 @@ ul { list-style: none; }
 }
 
 @media (max-width: 900px) {
-  .hero { padding: 100px 0 60px; }
-  .hero .container { grid-template-columns: 1fr; text-align: center; }
+  .hero { padding: 100px 0 0; }
+  .hero .container { text-align: center; padding-bottom: 40px; }
   .hero-content { animation-name: fadeInUp; }
   .hero-sub, .hero-body { margin-left: auto; margin-right: auto; }
   .hero-ctas { justify-content: center; }
-  .hero-image { max-width: 500px; margin: 0 auto; animation-name: fadeInUp; }
-  .hero-image-badge { left: 50%; transform: translateX(-50%); bottom: -20px; }
-  .hero-scroll-indicator { display: none; }
 }
 
 @media (max-width: 480px) {
   .hero h1 { font-size: 2.4rem; }
+}
+
+
+/* ===== HERO PARTNERS STRIP ===== */
+.hero-partners {
+  position: relative;
+  z-index: 5;
+  background: #fff;
+  padding: 10px 0 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.hp-eyebrow {
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 0;
+  padding-bottom: 6px;
+}
+
+/* Scrolling track */
+.hp-track {
+  overflow: hidden;
+  height: 92px;
+  position: relative;
+}
+
+/* Animated scene: car + rope + logos */
+.hp-scene {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  bottom: 10px;
+  left: 0;
+  animation: hp-drive 24s linear infinite;
+}
+
+@keyframes hp-drive {
+  from { transform: translateX(110vw); }
+  to   { transform: translateX(-100%); }
+}
+
+.hp-car {
+  flex-shrink: 0;
+}
+
+/* Horizontal rope — border-top is the rope line */
+.hp-rope {
+  display: flex;
+  align-items: flex-start;
+  border-top: 2px solid #2d3748;
+  padding: 0 28px 0 0;
+  margin-bottom: 13px;   /* lifts rope to align with car body */
+  gap: 4px;
+}
+
+/* Individual hanging tag */
+.hp-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  transform-origin: top center;
+  animation: hp-sway 2.1s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes hp-sway {
+  0%, 100% { transform: rotate(-7deg); }
+  50%       { transform: rotate(7deg);  }
+}
+
+/* Hanging string */
+.hp-string {
+  width: 1.5px;
+  height: 16px;
+  background: #2d3748;
+  opacity: 0.4;
+}
+
+/* Badge card */
+.hp-badge {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 5px 12px 5px 7px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.09);
+  white-space: nowrap;
+}
+
+/* Coloured logo placeholder square */
+.hp-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+  font-family: 'Excon', sans-serif;
+}
+
+.hp-badge span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+@media (max-width: 640px) {
+  .hp-track { height: 80px; }
+  .hp-car svg { width: 110px; height: 53px; }
+  .hp-string { height: 12px; }
+  .hp-badge { padding: 4px 8px 4px 5px; gap: 6px; }
+  .hp-badge span { font-size: 0.64rem; }
+  .hp-icon { width: 22px; height: 22px; font-size: 0.65rem; }
+  .hp-rope { margin-bottom: 10px; }
+  .hp-tag { margin: 0 7px; }
 }
 
 
@@ -1788,6 +1903,9 @@ section { padding: 100px 0; }
 .promo-banner.hidden ~ .navbar {
   top: 0;
 }
+.promo-banner.hidden ~ .hero .hero-bg-image {
+  top: 76px;
+}
 
 @media (max-width: 640px) {
   .promo-banner {
@@ -1802,6 +1920,12 @@ section { padding: 100px 0; }
   }
   .promo-banner.hidden ~ .navbar {
     top: 0;
+  }
+  .hero-bg-image {
+    top: 112px;
+  }
+  .promo-banner.hidden ~ .hero .hero-bg-image {
+    top: 76px;
   }
 }
 
