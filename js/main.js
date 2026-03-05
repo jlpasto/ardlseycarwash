@@ -293,4 +293,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ===== COMMUNITY PARTNERS ANIMATION =====
+  (function () {
+    const track = document.querySelector('.hp-track');
+    if (!track) return;
+    const scenes = () => track.querySelectorAll('.hp-scene');
+
+    // --- Pause on hover (desktop) ---
+    track.addEventListener('mouseenter', () =>
+      scenes().forEach(s => s.style.animationPlayState = 'paused'));
+    track.addEventListener('mouseleave', () =>
+      scenes().forEach(s => s.style.animationPlayState = 'running'));
+
+    // --- Click → open partner URL ---
+    track.addEventListener('click', e => {
+      const badge = e.target.closest('[data-url]');
+      if (badge) window.open(badge.dataset.url, '_blank', 'noopener noreferrer');
+    });
+
+    // --- Touch swipe (mobile) ---
+    let touchStartX = 0;
+    let snapshots = [];
+    let dragging = false;
+
+    function getTranslateX(el) {
+      return new DOMMatrix(getComputedStyle(el).transform).m41;
+    }
+
+    track.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      snapshots = [...scenes()].map(s => {
+        const x = getTranslateX(s);
+        s.style.animationPlayState = 'paused';
+        s.style.transform = `translateX(${x}px)`;
+        return x;
+      });
+      dragging = true;
+    }, { passive: true });
+
+    track.addEventListener('touchmove', e => {
+      if (!dragging) return;
+      const dx = e.touches[0].clientX - touchStartX;
+      [...scenes()].forEach((s, i) => {
+        s.style.transform = `translateX(${snapshots[i] + dx}px)`;
+      });
+    }, { passive: true });
+
+    track.addEventListener('touchend', e => {
+      if (!dragging) return;
+      dragging = false;
+      const vw = window.innerWidth;
+      [...scenes()].forEach(s => {
+        const currentX = getTranslateX(s);
+        const sceneWidth = s.offsetWidth;
+        const from = vw * 1.1;
+        const to = -sceneWidth;
+        const progress = Math.max(0, Math.min(1, (from - currentX) / (from - to)));
+        s.style.transform = '';
+        s.style.animationDelay = `${-(progress * 24)}s`;
+        s.style.animationPlayState = 'running';
+      });
+    }, { passive: true });
+  })();
+
 });
