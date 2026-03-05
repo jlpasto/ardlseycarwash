@@ -623,9 +623,10 @@ ul { list-style: none; }
 .hero-partners {
   position: relative;
   z-index: 5;
-  background: #fff;
+  background: #eef2f7;
   padding: 10px 0 0;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid #dce6f0;
+  border-bottom: 1px solid #dce6f0;
 }
 
 /* Scrolling track */
