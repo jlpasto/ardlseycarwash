@@ -45,7 +45,99 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
-  /* ===== RENDER HELPERS ===== */
+  /* ===== RENDER HELPERS — TEAMS & PARTNERS ===== */
+  function fileUrl(record, filename) {
+    return `${APP_CONFIG.POCKETBASE_URL}/api/files/${record.collectionName}/${record.id}/${filename}`;
+  }
+
+  function renderTeamCard(team, index) {
+    const logoHtml = team.logo
+      ? `<img src="${fileUrl(team, team.logo)}" alt="${team.name}" class="ce-card-logo"/>`
+      : '';
+    const linkHtml = team.link
+      ? `<div class="ce-card-footer">
+          <a href="${team.link}" target="_blank" rel="noopener" class="ce-card-link">
+            Visit Website
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>` : '';
+    return `
+      <div class="ce-card" data-animate data-delay="${index * 80}">
+        <div class="ce-card-logo-wrap">${logoHtml}</div>
+        <div class="ce-card-body">
+          <h3>${team.name}</h3>
+          ${team.description ? `<p>${team.description}</p>` : ''}
+        </div>
+        ${linkHtml}
+      </div>`;
+  }
+
+  function renderPartnerCard(partner, index) {
+    const logoHtml = partner.logo
+      ? `<img src="${fileUrl(partner, partner.logo)}" alt="${partner.name}" class="ce-card-logo"/>`
+      : '';
+    const linkHtml = partner.link
+      ? `<div class="ce-card-footer">
+          <a href="${partner.link}" target="_blank" rel="noopener" class="ce-card-link">
+            Visit Website
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>` : '';
+    return `
+      <div class="ce-card ce-card--partner" data-animate data-delay="${index * 80}">
+        <div class="ce-card-logo-wrap">${logoHtml}</div>
+        <div class="ce-card-body">
+          <h3>${partner.name}</h3>
+          ${partner.description ? `<p class="ce-card-desc">${partner.description}</p>` : ''}
+        </div>
+        ${linkHtml}
+      </div>`;
+  }
+
+
+  /* ===== LOAD TEAMS FROM API ===== */
+  async function loadTeams() {
+    if (!APP_CONFIG.POCKETBASE_URL) return;
+    const grid = document.getElementById('teamsGrid');
+    if (!grid) return;
+    grid.innerHTML = '<p class="ce-events-loading">Loading teams…</p>';
+    try {
+      const res = await fetch(`${apiUrl(APP_CONFIG.COLLECTIONS.TEAMS)}?filter=(status='active')&sort=name&perPage=50`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const records = data.items || [];
+      grid.innerHTML = records.length
+        ? records.map((t, i) => renderTeamCard(t, i)).join('')
+        : '<p class="ce-events-empty">Check back soon for team updates!</p>';
+      setupAnimations();
+    } catch (err) {
+      console.error('Teams load error:', err);
+    }
+  }
+
+
+  /* ===== LOAD PARTNERS FROM API ===== */
+  async function loadPartners() {
+    if (!APP_CONFIG.POCKETBASE_URL) return;
+    const grid = document.getElementById('partnersGrid');
+    if (!grid) return;
+    grid.innerHTML = '<p class="ce-events-loading">Loading partners…</p>';
+    try {
+      const res = await fetch(`${apiUrl(APP_CONFIG.COLLECTIONS.PARTNERS)}?filter=(status='active')&sort=name&perPage=50`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const records = data.items || [];
+      grid.innerHTML = records.length
+        ? records.map((p, i) => renderPartnerCard(p, i)).join('')
+        : '<p class="ce-events-empty">Check back soon for partner updates!</p>';
+      setupAnimations();
+    } catch (err) {
+      console.error('Partners load error:', err);
+    }
+  }
+
+
+  /* ===== RENDER HELPERS — EVENTS ===== */
   function formatDate(dateStr) {
     // dateStr from PocketBase: "2025-06-14 00:00:00.000Z" or "2025-06-14"
     const d = new Date(dateStr);
@@ -159,6 +251,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   loadEvents();
+  loadTeams();
+  loadPartners();
 
 
   /* ===== EVENT FILTER TABS ===== */
