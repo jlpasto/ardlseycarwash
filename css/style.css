@@ -1012,6 +1012,8 @@ section { padding: 100px 0; }
 }
 
 .exterior-options { margin-top: 48px; }
+.exterior-options-header { margin-bottom: 24px; }
+.exterior-options-note { color: var(--text-muted); font-size: 0.95rem; margin-top: 4px; }
 
 @media (max-width: 1024px) { .services-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) {
