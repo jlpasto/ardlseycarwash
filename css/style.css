@@ -1022,33 +1022,177 @@ section { padding: 100px 0; }
 
 
 /* ===== IMAGE GALLERY STRIP ===== */
-.gallery-strip {
-  padding: 0;
+/* ===== DAILY PROMOS STRIP ===== */
+.promo-strip {
+  background: linear-gradient(135deg, #0f1f3d 0%, #1a2e4a 50%, #0f1f3d 100%);
+  padding: 48px 24px;
   overflow: hidden;
-  background: var(--navy);
+  position: relative;
 }
 
-.gallery-scroll {
+.promo-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255,215,0,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(124,58,237,0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.promo-strip-inner {
   display: flex;
-  gap: 4px;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.gallery-scroll img {
-  width: 25%;
-  min-width: 280px;
-  height: 240px;
-  object-fit: cover;
-  transition: all 0.4s ease;
-  filter: brightness(0.8);
+.promo-card {
+  position: relative;
+  flex: 1 1 220px;
+  max-width: 270px;
+  min-width: 200px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px 24px 28px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.15);
+  cursor: default;
+  overflow: hidden;
+  animation: promoFloat 3s ease-in-out infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.gallery-scroll img:hover {
-  filter: brightness(1);
-  transform: scale(1.02);
+.promo-card:nth-child(2) { animation-delay: 0.4s; }
+.promo-card:nth-child(3) { animation-delay: 0.8s; }
+.promo-card:nth-child(4) { animation-delay: 1.2s; }
+
+@keyframes promoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+.promo-card:hover {
+  transform: translateY(-12px) scale(1.04);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.35);
+  animation-play-state: paused;
+}
+
+/* Colored top accent bar */
+.promo-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  border-radius: 24px 24px 0 0;
+}
+
+/* Decorative background bubble */
+.promo-card-bubble {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  top: -30px;
+  right: -30px;
+  opacity: 0.08;
+}
+
+/* Per-card color themes */
+.promo-card--monday::before  { background: linear-gradient(90deg, #FFD700, #FFA500); }
+.promo-card--monday .promo-card-bubble { background: #FFD700; }
+.promo-card--monday .promo-card-day   { color: #B8860B; }
+.promo-card--monday .promo-card-discount { background: linear-gradient(135deg, #FFD700, #FFA500); }
+
+.promo-card--tuesday::before  { background: linear-gradient(90deg, #FF6B9D, #FF3D7F); }
+.promo-card--tuesday .promo-card-bubble { background: #FF6B9D; }
+.promo-card--tuesday .promo-card-day   { color: #c0185a; }
+.promo-card--tuesday .promo-card-discount { background: linear-gradient(135deg, #FF6B9D, #FF3D7F); }
+
+.promo-card--wednesday::before  { background: linear-gradient(90deg, #7C3AED, #5B21B6); }
+.promo-card--wednesday .promo-card-bubble { background: #7C3AED; }
+.promo-card--wednesday .promo-card-day   { color: #5B21B6; }
+.promo-card--wednesday .promo-card-discount { background: linear-gradient(135deg, #7C3AED, #5B21B6); }
+
+.promo-card--thursday::before  { background: linear-gradient(90deg, #10B981, #059669); }
+.promo-card--thursday .promo-card-bubble { background: #10B981; }
+.promo-card--thursday .promo-card-day   { color: #047857; }
+.promo-card--thursday .promo-card-discount { background: linear-gradient(135deg, #10B981, #059669); }
+
+.promo-card-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  animation: promoBounce 2s ease-in-out infinite;
+}
+
+.promo-card:nth-child(2) .promo-card-icon { animation-delay: 0.3s; }
+.promo-card:nth-child(3) .promo-card-icon { animation-delay: 0.6s; }
+.promo-card:nth-child(4) .promo-card-icon { animation-delay: 0.9s; }
+
+@keyframes promoBounce {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  50%       { transform: scale(1.12) rotate(2deg); }
+}
+
+.promo-card-icon svg { width: 100%; height: 100%; display: block; }
+
+.promo-card-day {
+  font-family: 'Excon', 'Work Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.promo-card-wash {
+  font-family: 'Excon', 'Work Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a2e4a;
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+
+.promo-card-discount {
+  display: inline-block;
+  color: #fff;
+  font-family: 'Excon', 'Work Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  padding: 6px 20px;
+  border-radius: 50px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  animation: promoPulse 2.5s ease-in-out infinite;
+}
+
+.promo-card:nth-child(2) .promo-card-discount { animation-delay: 0.5s; }
+.promo-card:nth-child(3) .promo-card-discount { animation-delay: 1s; }
+.promo-card:nth-child(4) .promo-card-discount { animation-delay: 1.5s; }
+
+@keyframes promoPulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+
+.promo-card-stars {
+  font-size: 14px;
+  color: #FFD700;
+  letter-spacing: 2px;
 }
 
 @media (max-width: 768px) {
-  .gallery-scroll img { min-width: 200px; height: 180px; }
+  .promo-strip { padding: 32px 16px; }
+  .promo-strip-inner { gap: 14px; }
+  .promo-card { flex: 1 1 160px; min-width: 150px; padding: 24px 16px 20px; }
+  .promo-card-icon { width: 54px; height: 54px; }
+  .promo-card-wash { font-size: 15px; }
+  .promo-card-discount { font-size: 22px; padding: 4px 14px; }
 }
 
 
