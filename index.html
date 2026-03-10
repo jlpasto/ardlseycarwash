@@ -81,7 +81,12 @@
 
   <div class="container">
     <div class="hero-content">
-      <h1>Your Neighborhood Car Wash.<br/><span class="highlight-yellow">Local Shine.</span><br/><span class="highlight-red">Proudly community-driven.</span></h1>
+      <h1 class="hero-headline" aria-live="polite">
+        <span class="hero-phrase" data-index="0">Your Neighborhood<br/>Car Wash.</span>
+        <span class="hero-phrase" data-index="1"><span class="highlight-yellow">Local Shine.</span><br/><span style="color:#fff">Always.</span></span>
+        <span class="hero-phrase" data-index="2">Proudly<br/><span class="highlight-red">Community-Driven.</span></span>
+        <span class="hero-phrase" data-index="3">Over <span class="highlight-yellow">20 Years</span><br/>of Neighbors.</span>
+      </h1>
       <p class="hero-sub">For over two decades, Ardsley Car Wash has been your neighborhood destination for dependable car care, local pride, and community connection.</p>
 <div class="hero-ctas">
         <a href="#booking" class="btn btn-yellow btn-lg">Book Now</a>
@@ -1241,5 +1246,40 @@
 <!-- ========== SCRIPTS ========== -->
 <script src="js/config.js"></script>
 <script src="js/main.js"></script>
+<script>
+(function () {
+  const phrases  = document.querySelectorAll('.hero-phrase');
+  const overlay  = document.querySelector('.hero-bg-overlay');
+  const HOLD     = 3200;   // ms each phrase stays visible
+  const GAP      = 420;    // ms gap between exit and entry (overlay peeks through)
+  let current    = 0;
+
+  function show(index) {
+    phrases[index].classList.add('phrase-active');
+    phrases[index].classList.remove('phrase-exit');
+  }
+
+  function cycle() {
+    const next = (current + 1) % phrases.length;
+
+    // Exit current phrase
+    phrases[current].classList.add('phrase-exit');
+    phrases[current].classList.remove('phrase-active');
+
+    // Briefly lighten the overlay so the background peeks through
+    overlay.classList.add('overlay-reveal');
+
+    setTimeout(function () {
+      overlay.classList.remove('overlay-reveal');
+      show(next);
+      current = next;
+    }, GAP);
+  }
+
+  // Initialise first phrase immediately
+  show(0);
+  setInterval(cycle, HOLD);
+})();
+</script>
 </body>
 </html>

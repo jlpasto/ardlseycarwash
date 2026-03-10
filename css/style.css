@@ -536,13 +536,46 @@ ul { list-style: none; }
 .hero h1 {
   font-size: clamp(2.6rem, 4vw, 3.5rem);
   color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
   letter-spacing: -0.02em;
   line-height: 1.18;
 }
 
 .hero h1 .highlight-red { color: var(--red); }
 .hero h1 .highlight-yellow { color: var(--yellow); }
+
+/* ── Cycling headline phrases ── */
+.hero-headline {
+  position: relative;
+  min-height: 3.6em;
+  display: block;
+}
+.hero-phrase {
+  position: absolute;
+  top: 0; left: 0;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  pointer-events: none;
+  white-space: normal;
+}
+.hero-phrase.phrase-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.hero-phrase.phrase-exit {
+  opacity: 0;
+  transform: translateY(-18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+/* Overlay fades lighter when phrases are between transitions */
+.hero-bg-overlay {
+  transition: opacity 0.6s ease;
+}
+.hero-bg-overlay.overlay-reveal {
+  opacity: 0.45;
+}
 
 .hero-sub {
   font-size: clamp(0.81rem, 1.8vw, 1.01rem);
