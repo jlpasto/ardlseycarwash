@@ -2762,20 +2762,27 @@ section { padding: 100px 0; }
 
 @media (max-width: 640px) {
   .promo-banner {
-    font-size: 0.8rem;
-    padding: 8px 16px;
+    font-size: 0.75rem;
+    padding: 7px 12px;
   }
   .promo-banner-inner {
-    gap: 10px;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+  .promo-detail {
+    display: none;
+  }
+  .promo-banner-close {
+    font-size: 18px;
   }
   .navbar {
-    top: 36px;
+    top: 32px;
   }
   .promo-banner.hidden ~ .navbar {
     top: 0;
   }
   .hero-bg-image {
-    margin-top: 112px;
+    margin-top: 108px;
   }
   .promo-banner.hidden ~ .hero .hero-bg-image {
     margin-top: 76px;
