@@ -1031,6 +1031,22 @@ section { padding: 100px 0; }
   background-size: 10px;
 }
 
+/* Glossy soap bubble bullets for vibrant package cards */
+.pkg-card li::before {
+  content: '';
+  width: 13px; height: 13px;
+  min-width: 13px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-image: none;
+  box-shadow: inset -2px -2px 3px rgba(0,0,0,0.2), inset 2px 2px 4px rgba(255,255,255,0.5), 0 1px 4px rgba(0,0,0,0.2);
+}
+.pkg-card--blue   li::before { background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7) 0%, #1E79AE 55%); }
+.pkg-card--red    li::before { background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7) 0%, #EE3A23 55%); }
+.pkg-card--gold   li::before { background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7) 0%, #D97706 55%); }
+.pkg-card--mint   li::before { background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7) 0%, #10B981 55%); }
+.pkg-card--purple li::before { background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7) 0%, #7C3AED 55%); }
+
 .card-popular {
   position: absolute;
   top: 20px; right: -32px;
