@@ -253,7 +253,20 @@
 </div>
 
 <!-- ========== SERVICES ========== -->
-<section id="services">
+<section id="services" class="packages-section">
+
+  <!-- Floating background decorations -->
+  <div class="pkg-bg-decor" aria-hidden="true">
+    <div class="pkg-bg-bubble b1"></div>
+    <div class="pkg-bg-bubble b2"></div>
+    <div class="pkg-bg-bubble b3"></div>
+    <span class="pkg-sparkle s1">✦</span>
+    <span class="pkg-sparkle s2">✦</span>
+    <span class="pkg-sparkle s3">✦</span>
+    <span class="pkg-sparkle s4">✦</span>
+    <span class="pkg-sparkle s5">✦</span>
+  </div>
+
   <div class="container">
     <div class="section-header" data-animate>
       <p class="section-label red">Our Packages</p>
@@ -263,28 +276,35 @@
 
     <div class="services-grid">
       <!-- THE QUICK RINSE -->
-      <div class="service-card" data-animate data-delay="0">
-        <div class="card-icon bg-blue">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+      <div class="service-card pkg-card pkg-card--blue" data-animate data-delay="0">
+        <div class="pkg-card-bubble pkg-bubble-tl"></div>
+        <div class="pkg-card-bubble pkg-bubble-br"></div>
+        <div class="pkg-emoji-wrap pkg-emoji-blue">
+          <span>💧</span>
         </div>
+        <div class="pkg-tier-label pkg-tier-blue">Starter</div>
         <h3>The Quick Rinse</h3>
-        <div class="price">$23.99 <small>inc. tax</small></div>
+        <div class="pkg-price-badge pkg-price-blue">$23.99 <small>inc. tax</small></div>
         <ul>
           <li>Vacuum interior</li>
           <li>Towel dry</li>
           <li>Windows clean</li>
           <li>Dashboard wiped</li>
         </ul>
+        <div class="pkg-stars">★★★★★</div>
       </div>
 
       <!-- THE EXPRESS CLEAN -->
-      <div class="service-card featured" data-animate data-delay="100">
-        <span class="card-popular">Popular</span>
-        <div class="card-icon bg-red">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <div class="service-card pkg-card pkg-card--red featured" data-animate data-delay="100">
+        <div class="pkg-card-bubble pkg-bubble-tl"></div>
+        <div class="pkg-card-bubble pkg-bubble-br"></div>
+        <div class="pkg-popular-badge">🔥 Popular</div>
+        <div class="pkg-emoji-wrap pkg-emoji-red">
+          <span>🌟</span>
         </div>
+        <div class="pkg-tier-label pkg-tier-red">Most Popular</div>
         <h3>The Express Clean</h3>
-        <div class="price">$26.99 <small>inc. tax</small></div>
+        <div class="pkg-price-badge pkg-price-red">$26.99 <small>inc. tax</small></div>
         <ul>
           <li>Vacuum interior</li>
           <li>Towel dry</li>
@@ -294,21 +314,26 @@
           <li>Triple foam polish</li>
           <li>Tire shine</li>
         </ul>
+        <div class="pkg-stars">★★★★★</div>
       </div>
 
       <!-- THE ULTIMATE SHINE -->
-      <div class="service-card" data-animate data-delay="200">
-        <div class="card-icon bg-yellow">
-          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <div class="service-card pkg-card pkg-card--gold" data-animate data-delay="200">
+        <div class="pkg-card-bubble pkg-bubble-tl"></div>
+        <div class="pkg-card-bubble pkg-bubble-br"></div>
+        <div class="pkg-emoji-wrap pkg-emoji-gold">
+          <span>👑</span>
         </div>
+        <div class="pkg-tier-label pkg-tier-gold">Best Value</div>
         <h3>The Ultimate Shine</h3>
-        <div class="price">$29.99 <small>inc. tax</small></div>
+        <div class="pkg-price-badge pkg-price-gold">$29.99 <small>inc. tax</small></div>
         <ul>
           <li>Everything in The Express Clean</li>
           <li>Rubber mats wash</li>
           <li>Hot Carnauba wax</li>
           <li>Rain-X protection</li>
         </ul>
+        <div class="pkg-stars">★★★★★</div>
       </div>
     </div>
 
@@ -319,23 +344,28 @@
         <p class="exterior-options-note">No interior cleaning included &mdash; exterior wash &amp; finish only.</p>
       </div>
       <div class="services-grid two-col">
-        <div class="service-card compact">
-          <div class="card-icon bg-mint">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <div class="service-card pkg-card pkg-card--mint compact">
+          <div class="pkg-card-bubble pkg-bubble-tl"></div>
+          <div class="pkg-card-bubble pkg-bubble-br"></div>
+          <div class="pkg-emoji-wrap pkg-emoji-mint">
+            <span>🚗</span>
           </div>
           <h3>The Express Exterior <span class="exterior-label">(Exterior Only)</span></h3>
-          <div class="price">$14.76 <small>+ tax</small></div>
+          <div class="pkg-price-badge pkg-price-mint">$14.76 <small>+ tax</small></div>
           <ul>
             <li>Exterior wash</li>
             <li>Towel dry included</li>
           </ul>
+          <div class="pkg-stars">★★★★★</div>
         </div>
-        <div class="service-card compact">
-          <div class="card-icon bg-coral">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="service-card pkg-card pkg-card--purple compact">
+          <div class="pkg-card-bubble pkg-bubble-tl"></div>
+          <div class="pkg-card-bubble pkg-bubble-br"></div>
+          <div class="pkg-emoji-wrap pkg-emoji-purple">
+            <span>💎</span>
           </div>
           <h3>The Ultimate Exterior <span class="exterior-label">(Exterior Only)</span></h3>
-          <div class="price">$20.30 <small>+ tax</small></div>
+          <div class="pkg-price-badge pkg-price-purple">$20.30 <small>+ tax</small></div>
           <ul>
             <li>Towel dry</li>
             <li>Tire shine</li>
@@ -343,6 +373,7 @@
             <li>Hot Shine Carnauba Wax</li>
             <li>RAIN-X surface protectant</li>
           </ul>
+          <div class="pkg-stars">★★★★★</div>
         </div>
       </div>
     </div>
