@@ -82,10 +82,9 @@
   <div class="container">
     <div class="hero-content">
       <h1 class="hero-headline" aria-live="polite">
-        <span class="hero-phrase" data-index="0">Your Neighborhood<br/>Car Wash.</span>
-        <span class="hero-phrase" data-index="1"><span class="highlight-yellow">Local Shine.</span><br/><span style="color:#fff">Always.</span></span>
-        <span class="hero-phrase" data-index="2">Proudly<br/><span class="highlight-red">Community-Driven.</span></span>
-        <span class="hero-phrase" data-index="3">Part of the Neighborhood<br/>for Over <span class="highlight-yellow">20 Years.</span></span>
+        <span class="hero-phrase" data-index="0">Your Neighborhood<br/><span class="highlight-yellow">Car Wash.</span></span>
+        <span class="hero-phrase" data-index="1">Proudly<br/><span class="highlight-red">Community-Driven.</span></span>
+        <span class="hero-phrase" data-index="2">Part of the Neighborhood<br/>for Over <span class="highlight-yellow">20 Years.</span></span>
       </h1>
       <p class="hero-sub">For over two decades, Ardsley Car Wash has been your neighborhood destination for dependable car care, local pride, and community connection.</p>
 <div class="hero-ctas">
@@ -1274,6 +1273,7 @@
   const HOLD     = 3200;   // ms each phrase stays visible
   const GAP      = 420;    // ms gap between exit and entry (overlay peeks through)
   let current    = 0;
+  let timer      = null;
 
   function show(index) {
     phrases[index].classList.add('phrase-active');
@@ -1294,12 +1294,16 @@
       overlay.classList.remove('overlay-reveal');
       show(next);
       current = next;
+      // Stop rotation once we've cycled back to "Your Neighborhood Car Wash."
+      if (next === 0) {
+        clearInterval(timer);
+      }
     }, GAP);
   }
 
   // Initialise first phrase immediately
   show(0);
-  setInterval(cycle, HOLD);
+  timer = setInterval(cycle, HOLD);
 })();
 </script>
 </body>
