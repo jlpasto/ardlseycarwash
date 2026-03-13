@@ -310,21 +310,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!grid) return;
 
     if (!APP_CONFIG.POCKETBASE_URL) {
+      console.warn('[Gallery] No POCKETBASE_URL set in config.');
       grid.innerHTML = '<p class="ce-gallery-empty">Photo gallery coming soon!</p>';
       return;
     }
 
     const max = APP_CONFIG.GALLERY_MAX || 12;
+    const url = `${apiUrl(APP_CONFIG.COLLECTIONS.GALLERY)}?sort=-created&perPage=${max}`;
+    console.log('[Gallery] Fetching:', url);
+
     try {
-      const res = await fetch(`${apiUrl(APP_CONFIG.COLLECTIONS.GALLERY)}?sort=-created&perPage=${max}`);
+      const res = await fetch(url);
+      console.log('[Gallery] HTTP status:', res.status);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
       const data = await res.json();
+      console.log('[Gallery] Raw response:', data);
       const photos = data.items || [];
+      console.log(`[Gallery] Records returned: ${photos.length}`);
+
+      if (photos.length > 0) {
+        console.log('[Gallery] First record fields:', Object.keys(photos[0]));
+        console.log('[Gallery] First record image value:', photos[0].image);
+      }
 
       // Expand multi-image records into individual items, cap at GALLERY_MAX
       const items = [];
       for (const photo of photos) {
         const images = Array.isArray(photo.image) ? photo.image : (photo.image ? [photo.image] : []);
+        console.log(`[Gallery] Record ${photo.id} → ${images.length} image(s):`, images);
         for (const img of images) {
           items.push({ photo, img });
           if (items.length >= max) break;
@@ -332,16 +346,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (items.length >= max) break;
       }
 
+      console.log(`[Gallery] Total tiles to render: ${items.length}`);
+
       grid.innerHTML = items.length
         ? items.map(({ photo, img }, i) => renderGalleryItem(photo, img, i)).join('')
         : '<p class="ce-gallery-empty">Photos coming soon — check back!</p>';
 
       setupAnimations();
     } catch (err) {
-      console.error('Gallery load error:', err);
+      console.error('[Gallery] Load error:', err);
       grid.innerHTML = '<p class="ce-gallery-empty">Photos coming soon — check back!</p>';
     }
   }
+
+  // Expose a quick test helper in DevTools: galleryDebug()
+  window.galleryDebug = async () => {
+    const url = `${apiUrl(APP_CONFIG.COLLECTIONS.GALLERY)}?sort=-created&perPage=1`;
+    console.log('[galleryDebug] GET', url);
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log('[galleryDebug] Status:', res.status);
+    console.log('[galleryDebug] Response:', data);
+    if (data.items && data.items[0]) {
+      const r = data.items[0];
+      console.log('[galleryDebug] First record:', r);
+      console.log('[galleryDebug] image field:', r.image);
+      if (r.image) {
+        const filename = Array.isArray(r.image) ? r.image[0] : r.image;
+        const src = fileUrl(r, filename);
+        console.log('[galleryDebug] Resolved image URL:', src);
+      }
+    }
+    return data;
+  };
 
   // Lightbox
   function initLightbox() {
