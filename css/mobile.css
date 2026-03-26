@@ -2,6 +2,17 @@
 
 @media (max-width: 640px) {
 
+  /* ── Hero Banner ── */
+  .hero-bg-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    margin-top: 0;
+  }
+
   /* ── Trust Bar ── */
   .trust-bullets {
     display: grid;
