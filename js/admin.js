@@ -20,7 +20,7 @@
   // ── DOM REFS (populated after DOMContentLoaded) ──
   let loginOverlay, loginForm, loginEmailInput, loginPasswordInput, loginError;
   let toolbar;
-  let popover, popoverKeyLabel, popoverTextarea, popoverHint, popoverSaveBtn, popoverCancelBtn, popoverStatus;
+  let popover, popoverKeyLabel, popoverTextarea, popoverHint, popoverSaveBtn, popoverStatus;
   let heroGroupPopover, heroGroupTextareas, heroGroupSaveBtn, heroGroupStatus;
   let heroGroupEls = []; // the actual DOM elements for each phrase
 
@@ -53,7 +53,7 @@
     popoverTextarea   = document.getElementById('adminEditTextarea');
     popoverHint       = document.getElementById('adminEditHint');
     popoverSaveBtn    = document.getElementById('adminEditSave');
-    popoverCancelBtn  = document.getElementById('adminEditCancel');
+
     popoverStatus     = document.getElementById('adminEditStatus');
 
     heroGroupPopover   = document.getElementById('adminHeroGroupPopover');
@@ -456,15 +456,29 @@
     }
     if (left < margin) left = margin;
 
-    // If it overflows the bottom of viewport, place above
+    // If it overflows the bottom of viewport, try placing above
     if (rect.bottom + popH + margin > window.innerHeight) {
-      top = rect.top + scrollY - popH - margin;
-      pop.classList.add('popover-above');
+      const topIfAbove = rect.top + scrollY - popH - margin;
+      // Only go above if it would actually be visible (not hidden behind toolbar)
+      const minVisibleTop = scrollY + 60; // 60px clearance for toolbar/nav
+      if (topIfAbove >= minVisibleTop) {
+        top = topIfAbove;
+        pop.classList.add('popover-above');
+      }
+      // Otherwise keep it below and let CSS handle overflow via max-height
     }
 
-    pop.style.top  = top + 'px';
-    pop.style.left = left + 'px';
-    pop.style.width = popW + 'px';
+    // Never go above the visible viewport (accounts for fixed toolbar)
+    const minTop = scrollY + 60;
+    if (top < minTop) top = minTop;
+
+    pop.style.top     = top + 'px';
+    pop.style.left    = left + 'px';
+    pop.style.width   = popW + 'px';
+    // Cap height so it doesn't overflow the bottom of the screen
+    const maxH = window.innerHeight - (top - scrollY) - margin;
+    pop.style.maxHeight = Math.max(200, maxH) + 'px';
+    pop.style.overflowY = 'auto';
   }
 
   function bindPopoverEvents() {
