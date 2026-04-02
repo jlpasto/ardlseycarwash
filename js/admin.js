@@ -24,6 +24,9 @@
 
   // ── INIT ──
   document.addEventListener('DOMContentLoaded', async () => {
+    // Immediately reveal all scroll-animated elements — no IntersectionObserver in admin
+    document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('animated'));
+
     cacheElements();
     bindLoginEvents();
     bindPopoverEvents();
