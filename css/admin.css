@@ -158,6 +158,11 @@ body.admin-mode {
   padding-top: 48px;
 }
 
+/* Push promo banner below the admin toolbar */
+body.admin-mode .promo-banner {
+  top: 48px;
+}
+
 /* ── PENCIL ICON WRAPPER ── */
 .admin-editable-wrap {
   position: relative;
