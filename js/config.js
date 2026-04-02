@@ -20,6 +20,7 @@ const APP_CONFIG = {
     TEAMS:      'teams',
     PARTNERS:   'partners',
     GALLERY:    'gallery',
+    SITE_CONTENT: 'site_content',
   },
 
   // Maximum gallery photos to display (latest uploaded first)

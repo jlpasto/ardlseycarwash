@@ -2,7 +2,49 @@
    THE ARDSLEY CARWASH — Production JavaScript
    ================================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+
+  // ===== SITE CONTENT OVERRIDES (from PocketBase) =====
+  async function applySiteContentOverrides() {
+    if (!APP_CONFIG.POCKETBASE_URL) return;
+    try {
+      const res = await fetch(
+        `${APP_CONFIG.POCKETBASE_URL}/api/collections/site_content/records?perPage=200&fields=content_key,content_value`
+      );
+      if (!res.ok) return;
+      const data = await res.json();
+      const map = {};
+      (data.items || []).forEach(r => { map[r.content_key] = r.content_value; });
+
+      document.querySelectorAll('[data-content-key]').forEach(el => {
+        const key = el.dataset.contentKey;
+        if (!(key in map)) return;
+        const val = map[key];
+        const type = el.dataset.contentType || 'plain';
+
+        if (type === 'html') {
+          el.innerHTML = val;
+        } else if (type === 'text-node') {
+          // Preserve child nodes (e.g. SVG icon in FAQ buttons) — only update first text node
+          let textNode = null;
+          el.childNodes.forEach(node => {
+            if (!textNode && node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+              textNode = node;
+            }
+          });
+          if (textNode) {
+            textNode.textContent = '\n          ' + val + '\n          ';
+          }
+        } else {
+          el.textContent = val;
+        }
+      });
+    } catch (err) {
+      console.warn('[content] Failed to load site overrides:', err);
+    }
+  }
+
+  await applySiteContentOverrides();
 
   // ===== NAVBAR SCROLL EFFECT =====
   const navbar = document.getElementById('navbar');

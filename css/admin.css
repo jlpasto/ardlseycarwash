@@ -1,0 +1,365 @@
+/* ================================================
+   ARDSLEY CARWASH — Admin Content Editor Styles
+   ================================================ */
+
+/* ── LOGIN OVERLAY ── */
+.admin-login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.admin-login-overlay.hidden {
+  display: none;
+}
+
+.admin-login-modal {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.admin-login-logo {
+  width: 120px;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+.admin-login-modal h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 6px;
+}
+
+.admin-login-modal > p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 24px;
+}
+
+.admin-login-modal form {
+  text-align: left;
+}
+
+.admin-login-modal label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-login-modal input[type="email"],
+.admin-login-modal input[type="password"] {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #111;
+  background: #f9f9f9;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.admin-login-modal input:focus {
+  outline: none;
+  border-color: #f5c518;
+  background: #fff;
+}
+
+.admin-login-error {
+  color: #e03e3e;
+  font-size: 0.85rem;
+  margin: -8px 0 14px;
+  text-align: center;
+}
+
+.btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ── ADMIN TOOLBAR ── */
+.admin-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: #1a1a2e;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 12px;
+  z-index: 99998;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.admin-toolbar.hidden {
+  display: none;
+}
+
+.admin-toolbar-logo {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #f5c518;
+  letter-spacing: 0.03em;
+}
+
+.admin-toolbar-badge {
+  background: rgba(245, 197, 24, 0.15);
+  color: #f5c518;
+  border: 1px solid rgba(245, 197, 24, 0.3);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  padding: 2px 10px;
+  font-weight: 600;
+}
+
+.admin-toolbar-status {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.8rem;
+  margin-left: auto;
+}
+
+.admin-toolbar-logout {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.admin-toolbar-logout:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Push page down so toolbar doesn't overlap content */
+body.admin-mode {
+  padding-top: 48px;
+}
+
+/* ── PENCIL ICON WRAPPER ── */
+.admin-editable-wrap {
+  position: relative;
+  display: inline;
+}
+
+/* Block-level elements need block wrapper */
+.admin-editable-wrap.block {
+  display: block;
+}
+
+.admin-pencil-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f5c518;
+  border: 2px solid #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, transform 0.15s;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  padding: 0;
+  line-height: 1;
+}
+
+.admin-editable-wrap:hover .admin-pencil-btn {
+  opacity: 1;
+}
+
+.admin-pencil-btn:hover {
+  transform: scale(1.15);
+  background: #e6b800;
+}
+
+.admin-pencil-btn svg {
+  width: 13px;
+  height: 13px;
+  pointer-events: none;
+}
+
+/* Highlight editable elements on hover */
+.admin-editable-wrap:hover > :first-child:not(.admin-pencil-btn),
+.admin-editable-wrap.block:hover {
+  outline: 2px dashed rgba(245, 197, 24, 0.6);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── EDIT POPOVER ── */
+.admin-edit-popover {
+  position: absolute;
+  z-index: 99997;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  padding: 18px;
+  min-width: 300px;
+  max-width: 460px;
+  width: 90vw;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.admin-edit-popover.hidden {
+  display: none;
+}
+
+.admin-edit-key-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.admin-edit-popover textarea {
+  width: 100%;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #111;
+  resize: vertical;
+  min-height: 80px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  line-height: 1.5;
+}
+
+.admin-edit-popover textarea:focus {
+  outline: none;
+  border-color: #f5c518;
+}
+
+.admin-edit-hint {
+  font-size: 0.75rem;
+  color: #888;
+  margin: 6px 0 12px;
+  line-height: 1.4;
+}
+
+.admin-edit-hint.html-hint {
+  color: #5a6a8a;
+}
+
+.admin-edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-edit-actions .btn {
+  flex: 1;
+  justify-content: center;
+  padding: 9px 16px;
+  font-size: 0.875rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.admin-edit-actions .btn:active {
+  transform: scale(0.97);
+}
+
+.admin-btn-save {
+  background: #f5c518;
+  color: #111;
+}
+
+.admin-btn-save:hover:not(:disabled) {
+  background: #e6b800;
+}
+
+.admin-btn-save:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-btn-cancel {
+  background: #f0f0f0;
+  color: #444;
+}
+
+.admin-btn-cancel:hover {
+  background: #e4e4e4;
+}
+
+.admin-edit-status {
+  font-size: 0.8rem;
+  margin-top: 8px;
+  text-align: center;
+  min-height: 18px;
+}
+
+.admin-edit-status.success {
+  color: #2ecc71;
+  font-weight: 600;
+}
+
+.admin-edit-status.error {
+  color: #e03e3e;
+}
+
+/* ── DISABLE SITE INTERACTIONS IN ADMIN MODE ── */
+body.admin-mode a:not([class*="admin"]):not([class*="btn"]),
+body.admin-mode button:not([class*="admin"]):not(#adminLogout):not(#backToTop):not(.faq-question):not(.promo-banner-close):not(.promo-close) {
+  pointer-events: none;
+}
+
+/* Re-enable FAQ questions so we can see their answers (but they're wrapped in pointer-events:none above) */
+/* Actually we want FAQ to still open for reference — re-enable */
+body.admin-mode .faq-question {
+  pointer-events: none;
+}
+
+/* Popover arrow indicator */
+.admin-edit-popover::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: 20px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-left: 1px solid rgba(0,0,0,0.08);
+  border-top: 1px solid rgba(0,0,0,0.08);
+  transform: rotate(45deg);
+}
+
+.admin-edit-popover.popover-above::before {
+  top: auto;
+  bottom: -7px;
+  transform: rotate(225deg);
+}
