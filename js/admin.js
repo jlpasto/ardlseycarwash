@@ -613,15 +613,9 @@
     const saveStatus = document.getElementById('annSaveStatus');
     const bodyEditor = document.getElementById('annBody');
     const linkBtn    = document.getElementById('annLinkBtn');
-    const linkRow    = document.getElementById('annLinkRow');
-    const linkInput  = document.getElementById('annLinkInput');
-    const linkApply  = document.getElementById('annLinkApply');
 
     // Show floating button
     floatBtn.classList.remove('hidden');
-
-    // Load existing config
-    let savedSelection = null;
 
     if (contentMap[ANN_KEY]) {
       try {
@@ -652,44 +646,35 @@
     // ── WYSIWYG toolbar ──
     document.querySelectorAll('.ann-tb-btn[data-cmd]').forEach(btn => {
       btn.addEventListener('mousedown', (e) => {
-        e.preventDefault(); // keep focus in editor
+        e.preventDefault();        // keep selection alive
+        bodyEditor.focus();        // ensure editor has focus
         document.execCommand(btn.dataset.cmd, false, null);
         updateAnnPreview();
       });
     });
 
-    // ── Link button ──
-    linkBtn.addEventListener('click', () => {
-      // Save selection before the input steals focus
+    // ── Link button — prompt for URL ──
+    linkBtn.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      const saved = saveSelection();
+      const url = window.prompt('Enter URL:', 'https://');
+      if (url && url !== 'https://') {
+        bodyEditor.focus();
+        restoreSelection(saved);
+        document.execCommand('createLink', false, url);
+        updateAnnPreview();
+      }
+    });
+
+    function saveSelection() {
       const sel = window.getSelection();
-      if (sel && sel.rangeCount) {
-        savedSelection = sel.getRangeAt(0).cloneRange();
-      }
-      linkRow.classList.toggle('hidden');
-      if (!linkRow.classList.contains('hidden')) linkInput.focus();
-    });
-
-    linkApply.addEventListener('click', applyLink);
-    linkInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') applyLink();
-      if (e.key === 'Escape') linkRow.classList.add('hidden');
-    });
-
-    function applyLink() {
-      const url = linkInput.value.trim();
-      if (!url) return;
-      bodyEditor.focus();
-      // Restore selection
-      if (savedSelection) {
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(savedSelection);
-      }
-      document.execCommand('createLink', false, url);
-      linkRow.classList.add('hidden');
-      linkInput.value = '';
-      savedSelection = null;
-      updateAnnPreview();
+      return sel && sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
+    }
+    function restoreSelection(range) {
+      if (!range) return;
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
     }
 
     // ── Save ──
